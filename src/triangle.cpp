@@ -29,13 +29,13 @@ Point Triangle::center() const {
 }
 
 // Чтение/запись
-void Triangle::read(std::istream& in) {}   // ожидание: ввод по координатам
+void Triangle::read(std::istream& in) {}
 void Triangle::write(std::ostream& out) const {}
 
 // Площадь через приведение к double
 Triangle::operator double() const {}
 
-// Сравнение (например, по параметрам/вершинам)
+// Проверка на равенство
 bool Triangle::equals(const Triangle& other) const {
     return Figure::equals(other);
 }

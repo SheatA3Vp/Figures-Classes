@@ -32,13 +32,13 @@ public:
     virtual Point center() const;
 
     // Чтение/запись
-    virtual void read(std::istream& in);   // ожидание: ввод по координатам
+    virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
 
     // Площадь через приведение к double
     virtual operator double() const;
 
-    // Сравнение (например, по параметрам/вершинам)
+    // Проверка на равенство
     virtual bool equals(const Triangle& other) const;
 
 protected:

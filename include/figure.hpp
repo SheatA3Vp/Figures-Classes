@@ -34,14 +34,14 @@ public:
     // Геометрический центр (центроид)
     virtual Point center() const;
 
-    // Чтение/запись (реализуются для каждого типа)
-    virtual void read(std::istream& in);   // ожидание: ввод по координатам
+    // Чтение/запись
+    virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
 
     // Площадь через приведение к double
     virtual operator double() const = 0;
 
-    // Сравнение (например, по параметрам/вершинам)
+    // Проверка на равенство
     virtual bool equals(const Figure& other) const;
 
     friend std::ostream& operator<<(std::ostream& out, const Figure& f) {
