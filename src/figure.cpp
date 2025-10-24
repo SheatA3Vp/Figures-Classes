@@ -1,4 +1,5 @@
 #include "../include/figure.hpp"
+#include <algorithm>
 
 // Конструкторы
 Figure::Figure() : Figure(1) {}
@@ -12,12 +13,20 @@ Figure::Figure(size_t n) : vertices_num(n) {
 }
 
 Figure::Figure(size_t n, Point* verts) : vertices_num(n) {
-    if (verts != nullptr) {
-        this->vertices = new Point[n];
+    this->vertices = new Point[n];
 
+    if (verts != nullptr) {
         for (size_t i = 0; i < n; ++i) {
             this->vertices[i] = verts[i];
         }        
+    } else {
+        for (size_t i = 0; i < n; ++i) {
+            this->vertices[i] = Point();
+        }
+    }
+
+    if (!isConvex()) {
+        throw std::invalid_argument("Figure is not convex");
     }
 }
 
@@ -78,6 +87,10 @@ void Figure::read(std::istream& in) {
     for (size_t i = 0; i < n; ++i) {
         in >> this->vertices[i];
     }
+
+    if (!isConvex()) {
+        throw std::invalid_argument("Figure is not convex");
+    }
 }
 
 void Figure::write(std::ostream& out) const {
@@ -105,4 +118,56 @@ Point Figure::center() const {
         center = center + this->vertices[i];
     }
     return center / this->vertices_num;
+}
+
+// Сортировка вершин по порядку обхода
+void Figure::sortVertices() {
+    Point c = center();
+    std::sort(vertices, vertices + vertices_num, [&](const Point& a, const Point& b) {
+        double angleA = atan2(a.y - c.y, a.x - c.x);
+        double angleB = atan2(b.y - c.y, b.x - c.x);
+        return angleA < angleB;
+    });
+}
+
+// Нахождение площади с помощью метода шнурков
+Figure::operator double() const {
+    double S = 0;
+    double sum1 = 0;
+    double sum2 = 0;
+
+    for (size_t i = 0; i < this->vertices_num - 1; ++i) {
+        sum1 += this->vertices[i].x * this->vertices[i + 1].y;
+        sum2 += this->vertices[i].y * this->vertices[i + 1].x;
+    }
+
+    sum1 += this->vertices[vertices_num - 1].x * this->vertices[0].y;
+    sum2 += this->vertices[vertices_num - 1].y * this->vertices[0].x;
+
+    S = 0.5 * fabs(sum1 - sum2);
+
+    return S;
+}
+
+// Проверка на выпуклость
+bool Figure::isConvex() const {
+    if (vertices_num < 3) return true;
+
+    int sign = 0;
+    for (size_t i = 0; i < vertices_num; ++i) {
+        Point a = vertices[i];
+        Point b = vertices[(i + 1) % vertices_num];
+        Point c = vertices[(i + 2) % vertices_num];
+
+        double cross = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+
+        if (cross == 0) continue; // коллинеарные точки, пропускаем
+
+        int current_sign = (cross > 0) ? 1 : -1;
+
+        if (sign == 0) sign = current_sign;
+        else if (sign != current_sign) return false;
+    }
+
+    return true;
 }

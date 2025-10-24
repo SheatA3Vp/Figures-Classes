@@ -1,74 +1,74 @@
-#include "../include/triangle.hpp"
+#include "../include/octagon.hpp"
 
 // Конструкторы
-Triangle::Triangle() : Figure(TRIANGLE_VERTICES) {}
+Octagon::Octagon() : Figure(OCTAGON_VERTICES) {}
 
-Triangle::Triangle(Point* verts) : Figure(TRIANGLE_VERTICES, verts) {
+Octagon::Octagon(Point* verts) : Figure(OCTAGON_VERTICES, verts) {
     if (!isConvex()) {
-        throw std::invalid_argument("Triangle is not convex");
+        throw std::invalid_argument("Octagon is not convex");
     }
     if (static_cast<double>(*this) == 0.0) {
-        throw std::invalid_argument("Degenerate triangle");
+        throw std::invalid_argument("Degenerate octagon");
     }
     this->sortVertices();
 }
 
 // Конструктор копирования
-Triangle::Triangle(const Triangle& other) : Figure(other) {}
+Octagon::Octagon(const Octagon& other) : Figure(other) {}
 
 // Оператор присваивания копиованием
-Triangle& Triangle::operator=(const Triangle& other) {
+Octagon& Octagon::operator=(const Octagon& other) {
     Figure::operator=(other);
     return *this;
 }
 
 // Конструктор перемещения
-Triangle::Triangle(Triangle&& other) noexcept : Figure(std::move(other)) {}
+Octagon::Octagon(Octagon&& other) noexcept : Figure(std::move(other)) {}
 
 // Конструктор присваивания перемещением
-Triangle& Triangle::operator=(Triangle&& other) noexcept {
+Octagon& Octagon::operator=(Octagon&& other) noexcept {
     Figure::operator=(std::move(other));
     return *this;
 }
 
 // Геометрический центр (центроид)
-Point Triangle::center() const {
+Point Octagon::center() const {
     return Figure::center();
 }
 
 // Чтение/запись
-void Triangle::read(std::istream& in) {
-    for (size_t i = 0; i < TRIANGLE_VERTICES; ++i) {
+void Octagon::read(std::istream& in) {
+    for (size_t i = 0; i < OCTAGON_VERTICES; ++i) {
         in >> this->vertices[i];
     }
 
     if (!isConvex()) {
-        throw std::invalid_argument("Triangle is not convex");
+        throw std::invalid_argument("Octagon is not convex");
     }
     if (static_cast<double>(*this) == 0.0) {
-        throw std::invalid_argument("Degenerate triangle");
+        throw std::invalid_argument("Degenerate octagon");
     }
     this->sortVertices();
 }
 
-void Triangle::write(std::ostream& out) const {
-    for (size_t i = 0; i < TRIANGLE_VERTICES; ++i) {
+void Octagon::write(std::ostream& out) const {
+    for (size_t i = 0; i < OCTAGON_VERTICES; ++i) {
         Point p = this->vertices[i];
         out << p << " ";
     }
 }
 
 // Площадь через приведение к double
-Triangle::operator double() const {
+Octagon::operator double() const {
     return Figure::operator double();
 }
 
 // Клонирование
-Figure* Triangle::clone() const {
-    return new Triangle(*this);
+Figure* Octagon::clone() const {
+    return new Octagon(*this);
 }
 
 // Проверка на равенство
-bool Triangle::equals(const Figure& other) const {
+bool Octagon::equals(const Figure& other) const {
     return Figure::equals(other);
 }

@@ -5,27 +5,27 @@
 #include "point.hpp"
 #include "figure.hpp"
 
-class Triangle : public Figure {
+class Square : public Figure {
 public:
     // Конструкторы
-    Triangle();
+    Square();
 
-    Triangle(Point* verts);
+    Square(Point* verts);
 
     // Конструктор копирования
-    Triangle(const Triangle& other);
+    Square(const Square& other);
 
     // Оператор присваивания копиованием
-    Triangle& operator=(const Triangle& other);
+    Square& operator=(const Square& other);
 
     // Конструктор перемещения
-    Triangle(Triangle&& other) noexcept;
+    Square(Square&& other) noexcept;
 
     // Конструктор присваивания перемещением
-    Triangle& operator=(Triangle&& other) noexcept;
+    Square& operator=(Square&& other) noexcept;
 
     // Деструктор
-    virtual ~Triangle() = default;
+    virtual ~Square() = default;
 
     // Геометрический центр (центроид)
     virtual Point center() const;
@@ -35,7 +35,10 @@ public:
     virtual void write(std::ostream& out) const;
 
     // Тип фигуры
-    virtual std::string type() const override { return "triangle"; }
+    virtual std::string type() const override { return "square"; }
+
+    // Проверка на то, что точки образуют квадрат
+    virtual bool isSquare() const;
 
     // Клонирование
     virtual Figure* clone() const override;
@@ -47,5 +50,5 @@ public:
     virtual bool equals(const Figure& other) const override;
 
 protected:
-    static constexpr size_t TRIANGLE_VERTICES = 3;
+    static constexpr size_t SQUARE_VERTICES = 4;
 };

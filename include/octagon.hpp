@@ -5,27 +5,27 @@
 #include "point.hpp"
 #include "figure.hpp"
 
-class Triangle : public Figure {
+class Octagon : public Figure {
 public:
     // Конструкторы
-    Triangle();
+    Octagon();
 
-    Triangle(Point* verts);
+    Octagon(Point* verts);
 
     // Конструктор копирования
-    Triangle(const Triangle& other);
+    Octagon(const Octagon& other);
 
     // Оператор присваивания копиованием
-    Triangle& operator=(const Triangle& other);
+    Octagon& operator=(const Octagon& other);
 
     // Конструктор перемещения
-    Triangle(Triangle&& other) noexcept;
+    Octagon(Octagon&& other) noexcept;
 
     // Конструктор присваивания перемещением
-    Triangle& operator=(Triangle&& other) noexcept;
+    Octagon& operator=(Octagon&& other) noexcept;
 
     // Деструктор
-    virtual ~Triangle() = default;
+    virtual ~Octagon() = default;
 
     // Геометрический центр (центроид)
     virtual Point center() const;
@@ -35,7 +35,7 @@ public:
     virtual void write(std::ostream& out) const;
 
     // Тип фигуры
-    virtual std::string type() const override { return "triangle"; }
+    virtual std::string type() const override { return "octagon"; }
 
     // Клонирование
     virtual Figure* clone() const override;
@@ -47,5 +47,5 @@ public:
     virtual bool equals(const Figure& other) const override;
 
 protected:
-    static constexpr size_t TRIANGLE_VERTICES = 3;
+    static constexpr size_t OCTAGON_VERTICES = 8;
 };

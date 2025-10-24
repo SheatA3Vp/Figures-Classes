@@ -6,15 +6,25 @@ struct Point {
     double x = 0.0;
     double y = 0.0;
 
-    bool operator!=(const Point& other) {
-        if (other.x != this->x || other.y != this->y) return false;
-        return true;
+    bool operator==(const Point& other) const {
+        return this->x == other.x && this->y == other.y;
+    }
+
+    bool operator!=(const Point& other) const {
+        return !(*this == other);
     }
 
     Point operator+(const Point& other) {
         Point p;
         p.x = this->x + other.x;
         p.y = this->y + other.y;
+        return p;
+    }
+
+    Point operator-(const Point& other) const {
+        Point p;
+        p.x = this->x - other.x;
+        p.y = this->y - other.y;
         return p;
     }
 

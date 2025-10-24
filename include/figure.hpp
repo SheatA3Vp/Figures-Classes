@@ -2,10 +2,11 @@
 
 #include <iostream>
 #include <memory>
+#include <cmath>
+#include <stdexcept>
 #include "point.hpp"
 
 
-//TODO: Убрать ненужные виртуал и добавить консты и ноэксепт
 class Figure {
 public:
 
@@ -23,10 +24,10 @@ public:
     Figure& operator=(const Figure& other);
 
     // Конструктор перемещения
-    Figure(Figure&& other);
+    Figure(Figure&& other) noexcept;
 
     // Конструктор присваивания перемещением
-    Figure& operator=(Figure&& other);
+    Figure& operator=(Figure&& other) noexcept;
 
     // Деструктор
     virtual ~Figure();
@@ -34,12 +35,24 @@ public:
     // Геометрический центр (центроид)
     virtual Point center() const;
 
+    // Проверка на выпуклость
+    virtual bool isConvex() const;
+
+    // Сортировка вершин по порядку обхода
+    virtual void sortVertices();
+
     // Чтение/запись
     virtual void read(std::istream& in);
     virtual void write(std::ostream& out) const;
 
+    // Тип фигуры
+    virtual std::string type() const = 0;
+
+    // Клонирование
+    virtual Figure* clone() const = 0;
+
     // Площадь через приведение к double
-    virtual operator double() const = 0;
+    virtual operator double() const;
 
     // Проверка на равенство
     virtual bool equals(const Figure& other) const;

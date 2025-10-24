@@ -18,10 +18,12 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 
-add_library(${CMAKE_PROJECT_NAME}_lib src/Hex.cpp)
+add_library(${CMAKE_PROJECT_NAME}_lib src/figure.cpp src/triangle.cpp src/square.cpp src/octagon.cpp src/figure_array.cpp)
 add_executable(${CMAKE_PROJECT_NAME}_exe main.cpp)
 
+target_include_directories(${CMAKE_PROJECT_NAME}_lib PRIVATE include/)
 target_link_libraries(${CMAKE_PROJECT_NAME}_exe PRIVATE ${CMAKE_PROJECT_NAME}_lib)
+target_include_directories(${CMAKE_PROJECT_NAME}_exe PRIVATE include/)   
 
 # Добавление тестов
 enable_testing()
