@@ -15,7 +15,7 @@ public:
     // Конструктор копирования
     Triangle(const Triangle& other);
 
-    // Оператор присваивания копиованием
+    // Оператор присваивания копированием
     Triangle& operator=(const Triangle& other);
 
     // Конструктор перемещения
@@ -28,11 +28,11 @@ public:
     virtual ~Triangle() = default;
 
     // Геометрический центр (центроид)
-    virtual Point center() const;
+    virtual Point center() const override;
 
     // Чтение/запись
-    virtual void read(std::istream& in);
-    virtual void write(std::ostream& out) const;
+    virtual void read(std::istream& in) override;
+    virtual void write(std::ostream& out) const override;
 
     // Тип фигуры
     virtual std::string type() const override { return "triangle"; }
@@ -41,7 +41,7 @@ public:
     virtual Figure* clone() const override;
 
     // Площадь через приведение к double
-    virtual operator double() const;
+    virtual operator double() const override;
 
     // Проверка на равенство
     virtual bool equals(const Figure& other) const override;

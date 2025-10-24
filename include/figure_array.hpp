@@ -14,7 +14,7 @@ public:
     // Конструктор копирования
     FigureArray(const FigureArray& other);
 
-    // Оператор присваивания копиованием
+    // Оператор присваивания копированием
     FigureArray& operator=(const FigureArray& other);
 
     // Конструктор перемещения

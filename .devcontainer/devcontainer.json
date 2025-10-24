@@ -12,7 +12,8 @@
 			"extensions": [
 				"ms-vscode.cpptools",
 				"ms-vscode.cpptools-extension-pack",
-				"ms-vscode.cmake-tools"
+				"ms-vscode.cmake-tools",
+				"llvm-vs-code-extensions.vscode-clangd"
 			],
 			"settings": {
 				"terminal.integrated.shell.linux": "/bin/bash"
